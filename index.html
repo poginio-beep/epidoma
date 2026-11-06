@@ -177,4 +177,124 @@ button:hover{
 
 function startCheck(){
 
-    const
+    const name=document.getElementById("fullname").value.trim();
+    const year=parseInt(document.getElementById("year").value);
+
+    if(name===""){
+        alert("Παρακαλώ συμπληρώστε ονοματεπώνυμο.");
+        return;
+    }
+
+    if(isNaN(year)){
+        alert("Παρακαλώ συμπληρώστε έτος γέννησης.");
+        return;
+    }
+
+    document.getElementById("progressArea").style.display="block";
+
+    const fill=document.getElementById("fill");
+    const status=document.getElementById("status");
+
+    fill.style.width="15%";
+    status.innerHTML="Σύνδεση με ΑΑΔΕ...";
+
+    setTimeout(()=>{
+        fill.style.width="30%";
+        status.innerHTML="Αναζήτηση φορολογικού προφίλ...";
+    },1200);
+
+    setTimeout(()=>{
+        fill.style.width="50%";
+        status.innerHTML="Ανάκτηση στοιχείων ΕΦΚΑ...";
+    },2500);
+
+    setTimeout(()=>{
+        fill.style.width="70%";
+        status.innerHTML="Διασταύρωση ασφαλιστικών εισφορών...";
+    },4000);
+
+    setTimeout(()=>{
+        fill.style.width="90%";
+        status.innerHTML="Υπολογισμός αποζημίωσης...";
+    },5500);
+
+    setTimeout(()=>{
+
+        fill.style.width="100%";
+        status.innerHTML="Ο έλεγχος ολοκληρώθηκε.";
+
+        const amount=
+            Math.floor(Math.random()*(25000-9000)+9000);
+
+        document.getElementById("result").style.display="block";
+
+        document.getElementById("result").innerHTML=`
+
+        <div class="success-box">
+
+            <h2>✅ Έλεγχος Ολοκληρώθηκε</h2>
+
+            <p>Αγαπητέ/ή <strong>${name}</strong>,</p>
+
+            <p>
+            Το σύστημα ολοκλήρωσε με επιτυχία τον έλεγχο.
+            </p>
+
+            <p>
+            Πιθανότητα έγκρισης:
+            <strong>${
+                (year>=1990 && year<=1999)
+                ? '98%'
+                : '4%'
+            }</strong>
+            </p>
+
+            <p>Εκτιμώμενο ποσό:</p>
+
+            <div class="amount">
+            €${amount.toLocaleString('el-GR')}
+            </div>
+
+            <br>
+
+            <button onclick="showTruth()">
+                ΛΗΨΗ ΕΠΙΣΗΜΗΣ ΑΠΟΦΑΣΗΣ
+            </button>
+
+            <div id="finalArea"></div>
+
+        </div>
+        `;
+
+    },7000);
+}
+
+function showTruth(){
+
+    document.getElementById("finalArea").innerHTML=`
+
+    <div class="final">
+
+        <h1>😂 ΤΗΝ ΠΑΤΗΣΕΣ 😂</h1>
+
+        <h3>
+        Δεν υπάρχει κανένα κυβερνητικό πρόγραμμα,
+        καμία επιστροφή φόρων και καμία αποζημίωση.
+        </h3>
+
+        <p>
+        Η σελίδα δημιουργήθηκε αποκλειστικά για σατιρικούς σκοπούς.
+        </p>
+
+        <p>
+        Συγχαρητήρια, μόλις αφιέρωσες αρκετά λεπτά σε μια καλοστημένη φάρσα συναδέλφου. 😄
+        </p>
+
+    </div>
+    `;
+}
+
+</script>
+
+</body>
+</html>
