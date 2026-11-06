@@ -1,1 +1,239 @@
-Το GitHub Pages δουλεύει!
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Έλεγχος Δικαιώματος Επιστροφής Φόρων</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:#f4f6f9;
+}
+
+.header{
+    background:#003476;
+    color:white;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.container{
+    max-width:800px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,.15);
+}
+
+input{
+    width:200px;
+    padding:12px;
+    font-size:16px;
+}
+
+button{
+    padding:12px 20px;
+    background:#0066cc;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0055aa;
+}
+
+.progress{
+    display:none;
+    margin-top:25px;
+}
+
+.bar{
+    height:24px;
+    width:100%;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    width:0%;
+    background:#1ea84a;
+    transition:1s;
+}
+
+#status{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+#result{
+    display:none;
+    text-align:center;
+    margin-top:30px;
+}
+
+.amount{
+    color:green;
+    font-size:48px;
+    font-weight:bold;
+}
+
+.small{
+    color:#777;
+    font-size:13px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>Ειδικό Πρόγραμμα Επιστροφής Φορολογικών Επιβαρύνσεων</h1>
+</div>
+
+<div class="container">
+
+<p>
+Σύμφωνα με την πρόσφατη πρωτοβουλία αποκατάστασης φορολογικών βαρών,
+πολίτες που γεννήθηκαν από το 1990 έως το 1999 ενδέχεται να είναι
+δικαιούχοι επιστροφής μέρους των φορολογικών επιβαρύνσεων προηγούμενων ετών.
+</p>
+
+<p>
+Εισάγετε το έτος γέννησής σας για έλεγχο δικαιώματος.
+</p>
+
+<input id="year" type="number" placeholder="π.χ. 1994">
+<button onclick="check()">Έλεγχος</button>
+
+<div id="progress" class="progress">
+
+    <div class="bar">
+        <div id="fill" class="fill"></div>
+    </div>
+
+    <div id="status">
+        Επεξεργασία...
+    </div>
+
+</div>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function check(){
+
+const year=document.getElementById("year").value;
+
+if(year==""){
+    alert("Συμπλήρωσε έτος γέννησης.");
+    return;
+}
+
+document.getElementById("progress").style.display="block";
+
+const fill=document.getElementById("fill");
+const status=document.getElementById("status");
+
+fill.style.width="20%";
+status.innerHTML="Σύνδεση με ΑΑΔΕ...";
+
+setTimeout(function(){
+
+fill.style.width="45%";
+status.innerHTML="Έλεγχος φορολογικών επιβαρύνσεων...";
+
+},1500);
+
+setTimeout(function(){
+
+fill.style.width="70%";
+status.innerHTML="Υπολογισμός επιστροφής...";
+
+},3000);
+
+setTimeout(function(){
+
+fill.style.width="100%";
+status.innerHTML="Ολοκλήρωση ελέγχου...";
+
+},4500);
+
+setTimeout(function(){
+
+const result=document.getElementById("result");
+
+result.style.display="block";
+
+if(year>=1990 && year<=1999){
+
+result.innerHTML=
+`
+<h2>✅ Βρέθηκε δικαίωμα επιστροφής</h2>
+
+<p>Εκτιμώμενο ποσό:</p>
+
+<div class="amount">14.872€</div>
+
+<p class="small">
+Βάσει των φορολογικών σας στοιχείων.
+</p>
+
+<br>
+
+<button onclick="reveal()">
+Προβολή Επίσημης Απόφασης
+</button>
+
+<div id="final"></div>
+`;
+
+}else{
+
+result.innerHTML=
+`
+<h2>❌ Δεν βρέθηκε δικαίωμα συμμετοχής</h2>
+
+<p>Η ηλικιακή ομάδα σας δεν συμπεριλαμβάνεται στο πρόγραμμα.</p>
+`;
+}
+
+},6000);
+
+}
+
+function reveal(){
+
+document.getElementById("final").innerHTML=
+`
+<hr>
+
+<h1>😂 ΤΗΝ ΠΑΤΗΣΕΣ 😂</h1>
+
+<h3>Δεν υπάρχει καμία επιστροφή φόρων.</h3>
+
+<p>
+Το site δημιουργήθηκε αποκλειστικά για σατιρικούς σκοπούς.
+</p>
+
+<p>
+Καλή συνέχεια και λιγότερη αισιοδοξία όταν ακούς για χρήματα από το κράτος 😄
+</p>
+`;
+}
+
+</script>
+
+</body>
+</html>
