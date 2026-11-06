@@ -6,10 +6,9 @@
 <title>Έλεγχος Δικαιώματος Επιστροφής Φόρων</title>
 
 <style>
-
 body{
     margin:0;
-    font-family:Segoe UI,Arial,sans-serif;
+    font-family:Segoe UI, Arial, sans-serif;
     background:#f4f6f9;
 }
 
@@ -18,7 +17,6 @@ body{
     color:white;
     text-align:center;
     padding:25px;
-    box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
 
 .container{
@@ -45,10 +43,6 @@ button{
     cursor:pointer;
 }
 
-button:hover{
-    background:#0055aa;
-}
-
 .progress{
     display:none;
     margin-top:25px;
@@ -56,7 +50,6 @@ button:hover{
 
 .bar{
     height:24px;
-    width:100%;
     background:#ddd;
     border-radius:20px;
     overflow:hidden;
@@ -65,12 +58,12 @@ button:hover{
 .fill{
     height:100%;
     width:0%;
-    background:#1ea84a;
+    background:#28a745;
     transition:1s;
 }
 
 #status{
-    margin-top:12px;
+    margin-top:10px;
     font-weight:bold;
 }
 
@@ -85,14 +78,9 @@ button:hover{
     font-size:48px;
     font-weight:bold;
 }
-
-.small{
-    color:#777;
-    font-size:13px;
-}
-
 </style>
 </head>
+
 <body>
 
 <div class="header">
@@ -115,7 +103,6 @@ button:hover{
 <button onclick="check()">Έλεγχος</button>
 
 <div id="progress" class="progress">
-
     <div class="bar">
         <div id="fill" class="fill"></div>
     </div>
@@ -123,7 +110,6 @@ button:hover{
     <div id="status">
         Επεξεργασία...
     </div>
-
 </div>
 
 <div id="result"></div>
@@ -131,7 +117,6 @@ button:hover{
 </div>
 
 <script>
-
 function check(){
 
 const year=document.getElementById("year").value;
@@ -146,93 +131,76 @@ document.getElementById("progress").style.display="block";
 const fill=document.getElementById("fill");
 const status=document.getElementById("status");
 
-fill.style.width="20%";
+fill.style.width="25%";
 status.innerHTML="Σύνδεση με ΑΑΔΕ...";
 
 setTimeout(function(){
-
-fill.style.width="45%";
-status.innerHTML="Έλεγχος φορολογικών επιβαρύνσεων...";
-
+    fill.style.width="50%";
+    status.innerHTML="Έλεγχος φορολογικών επιβαρύνσεων...";
 },1500);
 
 setTimeout(function(){
-
-fill.style.width="70%";
-status.innerHTML="Υπολογισμός επιστροφής...";
-
+    fill.style.width="75%";
+    status.innerHTML="Υπολογισμός επιστροφής...";
 },3000);
 
 setTimeout(function(){
 
-fill.style.width="100%";
-status.innerHTML="Ολοκλήρωση ελέγχου...";
+    fill.style.width="100%";
+
+    const result=document.getElementById("result");
+    result.style.display="block";
+
+    if(year >= 1990 && year <= 1999){
+
+        result.innerHTML = `
+        <h2>✅ Βρέθηκε δικαίωμα επιστροφής</h2>
+
+        <p>Εκτιμώμενο ποσό:</p>
+
+        <div class="amount">14.872€</div>
+
+        <p>Βάσει των φορολογικών σας στοιχείων.</p>
+
+        <br>
+
+        <button onclick="reveal()">
+            Προβολή Επίσημης Απόφασης
+        </button>
+
+        <div id="final"></div>
+        `;
+
+    } else {
+
+        result.innerHTML = `
+        <h2>❌ Δεν βρέθηκε δικαίωμα συμμετοχής</h2>
+
+        <p>Η ηλικιακή ομάδα σας δεν συμπεριλαμβάνεται στο πρόγραμμα.</p>
+        `;
+    }
 
 },4500);
-
-setTimeout(function(){
-
-const result=document.getElementById("result");
-
-result.style.display="block";
-
-if(year>=1990 && year<=1999){
-
-result.innerHTML=
-`
-<h2>✅ Βρέθηκε δικαίωμα επιστροφής</h2>
-
-<p>Εκτιμώμενο ποσό:</p>
-
-<div class="amount">14.872€</div>
-
-<p class="small">
-Βάσει των φορολογικών σας στοιχείων.
-</p>
-
-<br>
-
-<button onclick="reveal()">
-Προβολή Επίσημης Απόφασης
-</button>
-
-<div id="final"></div>
-`;
-
-}else{
-
-result.innerHTML=
-`
-<h2>❌ Δεν βρέθηκε δικαίωμα συμμετοχής</h2>
-
-<p>Η ηλικιακή ομάδα σας δεν συμπεριλαμβάνεται στο πρόγραμμα.</p>
-`;
-}
-
-},6000);
 
 }
 
 function reveal(){
 
-document.getElementById("final").innerHTML=
-`
+document.getElementById("final").innerHTML = `
 <hr>
 
 <h1>😂 ΤΗΝ ΠΑΤΗΣΕΣ 😂</h1>
 
 <h3>Δεν υπάρχει καμία επιστροφή φόρων.</h3>
 
-<p>
-Το site δημιουργήθηκε αποκλειστικά για σατιρικούς σκοπούς.
-</p>
+<p>Το site δημιουργήθηκε αποκλειστικά για σατιρικούς σκοπούς.</p>
 
 <p>
 Καλή συνέχεια και λιγότερη αισιοδοξία όταν ακούς για χρήματα από το κράτος 😄
 </p>
 `;
-}
 
+}
 </script>
 
 </body>
